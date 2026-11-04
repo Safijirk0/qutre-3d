@@ -33,8 +33,6 @@ language, and you can switch at any time in **View → Language**.
 
 ### Screenshots
 
-![Qutre 3D editor — English UI](docs/screenshots/editor-en.png)
-
 | Russian UI | File dialog |
 |---|---|
 | ![Qutre 3D editor — Russian UI](docs/screenshots/editor-ru.png) | ![Qutre 3D file dialog](docs/screenshots/file-dialog-en.png) |
