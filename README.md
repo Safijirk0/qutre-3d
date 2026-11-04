@@ -264,7 +264,7 @@ Qutre 3D — компактный 3D-редактор миров на C#, где
 
 | Английский интерфейс | Файловый диалог |
 |---|---|
-| ![Редактор Qutre 3D — английский интерфейс](docs/screenshots/editor-en.png) | ![Файловый диалог Qutre 3D](docs/screenshots/file-dialog-en.png) |
+| ![Файловый диалог Qutre 3D](docs/screenshots/file-dialog-en.png) |
 
 ![Отрендеренная сцена джунглей](docs/screenshots/render-jungle.png)
 
