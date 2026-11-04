@@ -39,6 +39,8 @@ language, and you can switch at any time in **View → Language**.
 
 ![Rendered jungle scene](docs/screenshots/render-jungle.png)
 
+![Rendered Bryce scene — chrome, glass and a checker floor](docs/screenshots/render-bryce.png)
+
 ### Downloads
 
 | Package | Platform | Size |
@@ -265,6 +267,8 @@ Qutre 3D — компактный 3D-редактор миров на C#, где
 | ![Редактор Qutre 3D — английский интерфейс](docs/screenshots/editor-en.png) | ![Файловый диалог Qutre 3D](docs/screenshots/file-dialog-en.png) |
 
 ![Отрендеренная сцена джунглей](docs/screenshots/render-jungle.png)
+
+![Отрендеренная сцена Bryce — хром, стекло и шахматный пол](docs/screenshots/render-bryce.png)
 
 ### Загрузка
 
