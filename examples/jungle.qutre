@@ -1,0 +1,371 @@
+{
+  "name": "\u0411\u0435\u0437\u044B\u043C\u044F\u043D\u043D\u044B\u0439 \u043C\u0438\u0440",
+  "preset": "jungle",
+  "entities": [
+    {
+      "name": "\u041B\u0430\u043D\u0434\u0448\u0430\u0444\u0442",
+      "kind": "Terrain",
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "albedo": [
+        0.62,
+        0.66,
+        0.62
+      ],
+      "emissive": [
+        0,
+        0,
+        0
+      ],
+      "roughness": 0.7,
+      "metallic": 0,
+      "opacity": 1,
+      "terrain": {
+        "seed": 1337,
+        "size": 170,
+        "height": 26,
+        "frequency": 2.1,
+        "octaves": 7,
+        "warp": 0.85,
+        "resolution": 260,
+        "lowColor": [
+          0.03,
+          0.062,
+          0.045
+        ],
+        "highColor": [
+          0.12,
+          0.18,
+          0.11
+        ],
+        "rockColor": [
+          0.13,
+          0.13,
+          0.115
+        ],
+        "mossColor": [
+          0.055,
+          0.2,
+          0.105
+        ]
+      }
+    },
+    {
+      "name": "\u0412\u043E\u0434\u0430",
+      "kind": "Water",
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "albedo": [
+        0.025,
+        0.095,
+        0.105
+      ],
+      "emissive": [
+        0,
+        0,
+        0
+      ],
+      "roughness": 0.08,
+      "metallic": 0,
+      "opacity": 1,
+      "terrain": {
+        "seed": 1337,
+        "size": 150,
+        "height": 20,
+        "frequency": 1.8,
+        "octaves": 6,
+        "warp": 0.65,
+        "resolution": 180,
+        "lowColor": [
+          0.055,
+          0.085,
+          0.062
+        ],
+        "highColor": [
+          0.18,
+          0.22,
+          0.15
+        ],
+        "rockColor": [
+          0.2,
+          0.19,
+          0.17
+        ],
+        "mossColor": [
+          0.1,
+          0.24,
+          0.16
+        ]
+      }
+    },
+    {
+      "name": "\u041C\u043E\u043D\u043E\u043B\u0438\u0442",
+      "kind": "Box",
+      "visible": true,
+      "position": [
+        -16,
+        11,
+        -10
+      ],
+      "rotation": [
+        0,
+        18,
+        4
+      ],
+      "scale": [
+        2.6,
+        22,
+        2.6
+      ],
+      "albedo": [
+        0.13,
+        0.15,
+        0.14
+      ],
+      "emissive": [
+        0,
+        0,
+        0
+      ],
+      "roughness": 0.85,
+      "metallic": 0,
+      "opacity": 1,
+      "terrain": {
+        "seed": 1337,
+        "size": 150,
+        "height": 20,
+        "frequency": 1.8,
+        "octaves": 6,
+        "warp": 0.65,
+        "resolution": 180,
+        "lowColor": [
+          0.055,
+          0.085,
+          0.062
+        ],
+        "highColor": [
+          0.18,
+          0.22,
+          0.15
+        ],
+        "rockColor": [
+          0.2,
+          0.19,
+          0.17
+        ],
+        "mossColor": [
+          0.1,
+          0.24,
+          0.16
+        ]
+      }
+    },
+    {
+      "name": "\u0421\u0444\u0435\u0440\u0430",
+      "kind": "Sphere",
+      "visible": true,
+      "position": [
+        22,
+        7.5,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        7.5,
+        7.5,
+        7.5
+      ],
+      "albedo": [
+        0.1,
+        0.16,
+        0.14
+      ],
+      "emissive": [
+        0,
+        0,
+        0
+      ],
+      "roughness": 0.55,
+      "metallic": 0,
+      "opacity": 1,
+      "terrain": {
+        "seed": 1337,
+        "size": 150,
+        "height": 20,
+        "frequency": 1.8,
+        "octaves": 6,
+        "warp": 0.65,
+        "resolution": 180,
+        "lowColor": [
+          0.055,
+          0.085,
+          0.062
+        ],
+        "highColor": [
+          0.18,
+          0.22,
+          0.15
+        ],
+        "rockColor": [
+          0.2,
+          0.19,
+          0.17
+        ],
+        "mossColor": [
+          0.1,
+          0.24,
+          0.16
+        ]
+      }
+    },
+    {
+      "name": "\u0422\u043E\u0440",
+      "kind": "Torus",
+      "visible": true,
+      "position": [
+        6,
+        16,
+        12
+      ],
+      "rotation": [
+        28,
+        0,
+        20
+      ],
+      "scale": [
+        5.5,
+        5.5,
+        5.5
+      ],
+      "albedo": [
+        0.2,
+        0.17,
+        0.13
+      ],
+      "emissive": [
+        0,
+        0,
+        0
+      ],
+      "roughness": 0.45,
+      "metallic": 0.3,
+      "opacity": 1,
+      "terrain": {
+        "seed": 1337,
+        "size": 150,
+        "height": 20,
+        "frequency": 1.8,
+        "octaves": 6,
+        "warp": 0.65,
+        "resolution": 180,
+        "lowColor": [
+          0.055,
+          0.085,
+          0.062
+        ],
+        "highColor": [
+          0.18,
+          0.22,
+          0.15
+        ],
+        "rockColor": [
+          0.2,
+          0.19,
+          0.17
+        ],
+        "mossColor": [
+          0.1,
+          0.24,
+          0.16
+        ]
+      }
+    }
+  ],
+  "sky": {
+    "zenith": [
+      0.028,
+      0.048,
+      0.072
+    ],
+    "horizon": [
+      0.215,
+      0.315,
+      0.285
+    ],
+    "ground": [
+      0.02,
+      0.032,
+      0.028
+    ],
+    "sunColor": [
+      1,
+      0.8,
+      0.58
+    ],
+    "sunIntensity": 1.55,
+    "sunElevation": 12,
+    "sunAzimuth": 232,
+    "cloudCover": 0.72,
+    "stars": 0
+  },
+  "fog": {
+    "enabled": true,
+    "color": [
+      0.085,
+      0.14,
+      0.135
+    ],
+    "density": 0.0058,
+    "heightFalloff": 0.045
+  },
+  "post": {
+    "exposure": 1.04,
+    "bloom": 0.55,
+    "bloomThreshold": 0.95,
+    "godRays": 0.4,
+    "grain": 0.035,
+    "vignette": 0.55,
+    "saturation": 1.02,
+    "contrast": 1.08,
+    "chromatic": 0.3,
+    "tint": [
+      1.02,
+      1,
+      0.98
+    ]
+  },
+  "dust": true,
+  "dustDensity": 1
+}

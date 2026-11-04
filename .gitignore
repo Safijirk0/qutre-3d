@@ -1,0 +1,21 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+dist/
+*.user
+*.suo
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# Runtime files
+imgui.ini
+*.log
+crash.log
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
