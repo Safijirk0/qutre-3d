@@ -17,6 +17,8 @@ playground for DnB, jungle and breakcore artwork.
 [![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-2b2b2b?style=flat-square)](#downloads)
 [![License](https://img.shields.io/badge/license-MIT-3ddc84?style=flat-square)](LICENSE)
 
+<img src="docs/screenshots/editor-en.png" width="100%" alt="Qutre 3D editor">
+
 </div>
 
 ---
@@ -40,8 +42,6 @@ language, and you can switch at any time in **View → Language**.
 - Soft contact shadows extended from four to six casters.
 
 ### Screenshots
-
-![Qutre 3D editor — English UI](docs/screenshots/editor-en.png)
 
 | Russian UI | Bryce preset |
 |---|---|
