@@ -516,6 +516,29 @@ public static class SceneFactory
             Roughness = 0.16f,
             Metallic = 0.25f,
         });
+
+        scene.Entities.Add(new Entity
+        {
+            Name = Loc.T("Кружка", "Mug"),
+            Kind = EntityKind.Mug,
+            Position = new Vector3(14f, 5.83f, 13.5f),
+            Rotation = new Vector3(0f, -28f, 0f),
+            Scale = new Vector3(6f),
+            Albedo = new Vector3(0.88f, 0.86f, 0.81f),
+            Roughness = 0.40f,
+        });
+
+        scene.Entities.Add(new Entity
+        {
+            Name = Loc.T("Чайник", "Teapot"),
+            Kind = EntityKind.Teapot,
+            Position = new Vector3(-1.5f, 5.34f, 15.5f),
+            Rotation = new Vector3(0f, 18f, 0f),
+            Scale = new Vector3(5.5f),
+            Albedo = new Vector3(0.075f, 0.36f, 0.40f),
+            Roughness = 0.28f,
+            Metallic = 0.20f,
+        });
     }
 }
 

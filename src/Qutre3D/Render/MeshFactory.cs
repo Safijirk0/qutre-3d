@@ -166,6 +166,225 @@ public static class MeshFactory
         return Mesh.Create(verts.ToArray(), idx.ToArray());
     }
 
+    // ------------------------------------------------------------- фигуры вращения
+
+    /// <summary>Тело вращения по профилю (r, y) — кружки, чайники, вазы.</summary>
+    private static void AddLathe(List<float> verts, List<uint> idx, IReadOnlyList<Vector2> profile, int segments)
+    {
+        int rows = profile.Count;
+        int stride = segments + 1;
+
+        var normals = new Vector2[rows];
+        for (int i = 0; i < rows; i++)
+        {
+            Vector2 prev = profile[Math.Max(i - 1, 0)];
+            Vector2 next = profile[Math.Min(i + 1, rows - 1)];
+            Vector2 t = next - prev;
+            if (t.LengthSquared < 1e-8f) t = Vector2.UnitY;
+            t = Vector2.Normalize(t);
+            normals[i] = new Vector2(t.Y, -t.X);
+        }
+
+        uint start = (uint)(verts.Count / 9);
+        for (int i = 0; i < rows; i++)
+        {
+            float r = profile[i].X;
+            float y = profile[i].Y;
+            Vector2 n2 = normals[i];
+            for (int j = 0; j <= segments; j++)
+            {
+                float u = j / (float)segments;
+                float theta = u * MathF.Tau;
+                float ct = MathF.Cos(theta);
+                float st = MathF.Sin(theta);
+                var pos = new Vector3(r * ct, y, r * st);
+                Vector3 n = r < 1e-4f
+                    ? new Vector3(0f, n2.Y >= 0f ? 1f : -1f, 0f)
+                    : new Vector3(n2.X * ct, n2.Y, n2.X * st);
+                Add(verts, pos, n, new Vector2(u, i / (float)(rows - 1)), 0f);
+            }
+        }
+
+        for (int i = 0; i < rows - 1; i++)
+        {
+            for (int j = 0; j < segments; j++)
+            {
+                uint a = start + (uint)(i * stride + j);
+                uint b = a + 1;
+                uint c = a + (uint)stride;
+                uint d = c + 1;
+                idx.Add(a); idx.Add(c); idx.Add(b);
+                idx.Add(b); idx.Add(c); idx.Add(d);
+            }
+        }
+    }
+
+    /// <summary>Труба по опорным точкам — ручки и носики.</summary>
+    private static void AddTube(List<float> verts, List<uint> idx, IReadOnlyList<Vector3> points,
+        float r0, float r1, int ring)
+    {
+        int n = points.Count;
+        if (n < 2) return;
+
+        var tangents = new Vector3[n];
+        for (int i = 0; i < n; i++)
+        {
+            Vector3 a = points[Math.Max(i - 1, 0)];
+            Vector3 b = points[Math.Min(i + 1, n - 1)];
+            Vector3 t = b - a;
+            tangents[i] = t.LengthSquared > 1e-8f ? Vector3.Normalize(t) : Vector3.UnitY;
+        }
+
+        uint start = (uint)(verts.Count / 9);
+        for (int i = 0; i < n; i++)
+        {
+            float f = i / (float)(n - 1);
+            float radius = r0 + (r1 - r0) * f;
+            Vector3 t = tangents[i];
+            Vector3 n1 = Vector3.Cross(t, Vector3.UnitZ);
+            if (n1.LengthSquared < 1e-6f) n1 = Vector3.Cross(t, Vector3.UnitX);
+            n1 = Vector3.Normalize(n1);
+            Vector3 n2 = Vector3.Normalize(Vector3.Cross(t, n1));
+
+            for (int j = 0; j <= ring; j++)
+            {
+                float phi = j / (float)ring * MathF.Tau;
+                Vector3 dir = n1 * MathF.Cos(phi) + n2 * MathF.Sin(phi);
+                Add(verts, points[i] + dir * radius, dir, new Vector2(j / (float)ring, f), 0f);
+            }
+        }
+
+        int stride = ring + 1;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < ring; j++)
+            {
+                uint a = start + (uint)(i * stride + j);
+                uint b = a + 1;
+                uint c = a + (uint)stride;
+                uint d = c + 1;
+                idx.Add(a); idx.Add(c); idx.Add(b);
+                idx.Add(b); idx.Add(c); idx.Add(d);
+            }
+        }
+
+        AddTubeCap(verts, idx, points[0], -tangents[0], r0, ring);
+        AddTubeCap(verts, idx, points[n - 1], tangents[n - 1], r1, ring);
+    }
+
+    private static void AddTubeCap(List<float> verts, List<uint> idx, Vector3 center, Vector3 normal, float radius, int ring)
+    {
+        Vector3 n1 = Vector3.Cross(normal, Vector3.UnitZ);
+        if (n1.LengthSquared < 1e-6f) n1 = Vector3.Cross(normal, Vector3.UnitX);
+        n1 = Vector3.Normalize(n1);
+        Vector3 n2 = Vector3.Normalize(Vector3.Cross(normal, n1));
+
+        uint c = (uint)(verts.Count / 9);
+        Add(verts, center, normal, new Vector2(0.5f, 0.5f), 0f);
+        for (int j = 0; j <= ring; j++)
+        {
+            float phi = j / (float)ring * MathF.Tau;
+            Vector3 dir = n1 * MathF.Cos(phi) + n2 * MathF.Sin(phi);
+            Add(verts, center + dir * radius, normal,
+                new Vector2(0.5f + 0.5f * MathF.Cos(phi), 0.5f + 0.5f * MathF.Sin(phi)), 0f);
+        }
+
+        for (int j = 0; j < ring; j++)
+        {
+            idx.Add(c); idx.Add(c + 1 + (uint)j); idx.Add(c + 2 + (uint)j);
+        }
+    }
+
+    private static List<Vector3> CubicBezier(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, int steps)
+    {
+        var points = new List<Vector3>(steps + 1);
+        for (int i = 0; i <= steps; i++)
+        {
+            float t = i / (float)steps;
+            float u = 1f - t;
+            points.Add(u * u * u * p0 + 3f * u * u * t * p1 + 3f * u * t * t * p2 + t * t * t * p3);
+        }
+        return points;
+    }
+
+    /// <summary>Кружка: тело вращения с полой внутренностью и C-образная ручка.</summary>
+    public static Mesh Mug()
+    {
+        var verts = new List<float>();
+        var idx = new List<uint>();
+
+        Vector2[] profile =
+        {
+            new(0.00f, -0.98f),
+            new(0.54f, -0.98f),
+            new(0.72f, -0.92f),
+            new(0.79f, -0.78f),
+            new(0.80f,  0.70f),
+            new(0.83f,  0.90f),
+            new(0.80f,  1.00f),
+            new(0.72f,  1.00f),
+            new(0.70f,  0.84f),
+            new(0.68f, -0.70f),
+            new(0.57f, -0.84f),
+            new(0.00f, -0.84f),
+        };
+        AddLathe(verts, idx, profile, 48);
+
+        var handle = CubicBezier(
+            new Vector3(0.76f, 0.60f, 0f),
+            new Vector3(1.52f, 0.52f, 0f),
+            new Vector3(1.52f, -0.26f, 0f),
+            new Vector3(0.74f, -0.38f, 0f), 16);
+        AddTube(verts, idx, handle, 0.085f, 0.085f, 12);
+
+        return Mesh.Create(verts.ToArray(), idx.ToArray());
+    }
+
+    /// <summary>Чайник: пузатое тело с крышкой, носик и ручка.</summary>
+    public static Mesh Teapot()
+    {
+        var verts = new List<float>();
+        var idx = new List<uint>();
+
+        Vector2[] profile =
+        {
+            new(0.00f, -0.98f),
+            new(0.46f, -0.98f),
+            new(0.76f, -0.90f),
+            new(0.92f, -0.62f),
+            new(0.98f, -0.10f),
+            new(0.94f,  0.34f),
+            new(0.76f,  0.64f),
+            new(0.54f,  0.78f),
+            new(0.50f,  0.86f),
+            new(0.58f,  0.90f),
+            new(0.56f,  0.98f),
+            new(0.36f,  1.02f),
+            new(0.18f,  1.05f),
+            new(0.10f,  1.09f),
+            new(0.13f,  1.13f),
+            new(0.10f,  1.18f),
+            new(0.00f,  1.20f),
+        };
+        AddLathe(verts, idx, profile, 48);
+
+        var spout = CubicBezier(
+            new Vector3(0.84f, -0.10f, 0f),
+            new Vector3(1.30f, -0.02f, 0f),
+            new Vector3(1.38f,  0.42f, 0f),
+            new Vector3(1.52f,  0.62f, 0f), 16);
+        AddTube(verts, idx, spout, 0.15f, 0.075f, 12);
+
+        var handle = CubicBezier(
+            new Vector3(-0.72f, 0.62f, 0f),
+            new Vector3(-1.55f, 0.55f, 0f),
+            new Vector3(-1.55f, -0.30f, 0f),
+            new Vector3(-0.92f, -0.40f, 0f), 18);
+        AddTube(verts, idx, handle, 0.09f, 0.09f, 12);
+
+        return Mesh.Create(verts.ToArray(), idx.ToArray());
+    }
+
     /// <summary>Плоскость воды: единичный квадрат в плоскости XZ.</summary>
     public static Mesh Quad()
     {

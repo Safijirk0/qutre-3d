@@ -11,7 +11,7 @@ playground for DnB, jungle and breakcore artwork.
 
 [English](#english) · [Русский](#русский)
 
-[![Version](https://img.shields.io/badge/version-0.2.0-6ee7ff?style=flat-square)](../../releases)
+[![Version](https://img.shields.io/badge/version-0.3.0-6ee7ff?style=flat-square)](../../releases)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512bd4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com)
 [![OpenGL](https://img.shields.io/badge/OpenGL-3.3-5586a4?style=flat-square&logo=opengl&logoColor=white)](https://www.opengl.org)
 [![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-2b2b2b?style=flat-square)](#downloads)
@@ -31,24 +31,32 @@ aberration). Scenes are plain JSON and can be edited by hand.
 The interface is fully bilingual — English and Russian. The installer asks for a
 language, and you can switch at any time in **View → Language**.
 
+### What's new in 0.3.0
+
+- Two new procedural primitives: **Mug** and **Teapot** — a hollow rim, a curved
+  handle and a Bezier spout, all generated in code.
+- Code-drawn shelf icons, layer colors and inspector entries for both shapes.
+- The Bryce demo scene now places a mug and a teapot on the checker floor.
+- Soft contact shadows extended from four to six casters.
+
 ### Screenshots
 
-| Russian UI | File dialog |
+![Qutre 3D editor — English UI](docs/screenshots/editor-en.png)
+
+| Russian UI | Bryce preset |
 |---|---|
-| ![Qutre 3D editor — Russian UI](docs/screenshots/editor-ru.png) | ![Qutre 3D file dialog](docs/screenshots/file-dialog-en.png) |
+| ![Qutre 3D editor — Russian UI](docs/screenshots/editor-ru.png) | ![Rendered Bryce scene — chrome, glass and a checker floor](docs/screenshots/render-bryce.png) |
 
 ![Rendered jungle scene](docs/screenshots/render-jungle.png)
-
-![Rendered Bryce scene — chrome, glass and a checker floor](docs/screenshots/render-bryce.png)
 
 ### Downloads
 
 | Package | Platform | Size |
 |---|---|---|
-| [Qutre3D-0.2.0-win-x64-setup.exe](../../releases/latest/download/Qutre3D-0.2.0-win-x64-setup.exe) | Windows 10/11 x64 — installer | 28.5 MB |
-| [Qutre3D-0.2.0-win-x64-portable.zip](../../releases/latest/download/Qutre3D-0.2.0-win-x64-portable.zip) | Windows 10/11 x64 — portable | 36.9 MB |
-| [Qutre3D-0.2.0-linux-x64.tar.gz](../../releases/latest/download/Qutre3D-0.2.0-linux-x64.tar.gz) | Linux x64 | 35.8 MB |
-| [Qutre3D-0.2.0-linux-arm64.tar.gz](../../releases/latest/download/Qutre3D-0.2.0-linux-arm64.tar.gz) | Linux arm64 | 33.6 MB |
+| [Qutre3D-0.3.0-win-x64-setup.exe](../../releases/latest/download/Qutre3D-0.3.0-win-x64-setup.exe) | Windows 10/11 x64 — installer | 28.5 MB |
+| [Qutre3D-0.3.0-win-x64-portable.zip](../../releases/latest/download/Qutre3D-0.3.0-win-x64-portable.zip) | Windows 10/11 x64 — portable | 37.0 MB |
+| [Qutre3D-0.3.0-linux-x64.tar.gz](../../releases/latest/download/Qutre3D-0.3.0-linux-x64.tar.gz) | Linux x64 | 35.8 MB |
+| [Qutre3D-0.3.0-linux-arm64.tar.gz](../../releases/latest/download/Qutre3D-0.3.0-linux-arm64.tar.gz) | Linux arm64 | 33.6 MB |
 
 All builds are self-contained: no .NET runtime needs to be installed.
 
@@ -56,7 +64,7 @@ All builds are self-contained: no .NET runtime needs to be installed.
 
 **Windows**
 
-1. Run `Qutre3D-0.2.0-win-x64-setup.exe`.
+1. Run `Qutre3D-0.3.0-win-x64-setup.exe`.
 2. Choose **English** or **Русский** in the installer.
 3. Optionally create a desktop shortcut, then launch Qutre 3D from the Start menu.
 
@@ -68,8 +76,8 @@ The installer is distro-agnostic and ships a self-contained build. It does not
 use apt/dnf/pacman and does not require root for a normal user install.
 
 ```sh
-tar -xzf Qutre3D-0.2.0-linux-x64.tar.gz
-cd qutre3d-0.2.0-linux-x64
+tar -xzf Qutre3D-0.3.0-linux-x64.tar.gz
+cd qutre3d-0.3.0-linux-x64
 ./install.sh            # asks for English / Русский
 qutre3d                 # or launch "Qutre 3D" from the app menu
 ```
@@ -94,7 +102,7 @@ Debian 11+, Fedora 33+, Arch, openSUSE and derivatives).
 
 ### First steps
 
-1. Pick a preset in **Presets** — Jungle, Breakcore, Noir, Embers or Void.
+1. Pick a preset in **Presets** — Bryce, Jungle, Breakcore, Noir, Embers or Void.
 2. Orbit with the right mouse button and zoom with the wheel.
 3. Tune terrain, sky, fog and post in the right panel.
 4. Press `Ctrl+E` for a 1920×1080 PNG, or `Ctrl+S` to save a `.qutre` scene.
@@ -163,6 +171,8 @@ runtime in **View → Language**.
   tint, vignette, grain and chromatic aberration.
 - Presets are plain sets of numbers — colors, sun, fog, post and terrain palette.
 - Materials: albedo, emissive, roughness, metallic, opacity.
+- Procedural primitives: sphere, box, torus, cylinder, checker floor, mug and
+  teapot — every mesh is generated at startup, with no imported assets.
 - Drag objects directly in the viewport; gizmo highlighting and a layer list.
 - In-app file browser with path entry, filtering and remembered directories.
 - Full English/Russian UI, bundled DejaVu fonts for guaranteed Cyrillic glyphs.
@@ -258,26 +268,32 @@ Qutre 3D — компактный 3D-редактор миров на C#, где
 Интерфейс полностью двуязычный. Установщик спрашивает язык, а переключить его
 можно в любой момент через **Вид → Язык**.
 
+### Что нового в 0.3.0
+
+- Два новых процедурных примитива: **кружка** и **чайник** — полый венчик,
+  изогнутая ручка и носик по кривой Безье, всё строится кодом.
+- Нарисованные кодом иконки на полке, цвета слоёв и поля инспектора.
+- В демо-сцене Bryce на шахматном полу появились кружка и чайник.
+- Мягкие контактные тени расширены с четырёх до шести объектов.
+
 ### Скриншоты
 
 ![Редактор Qutre 3D — русский интерфейс](docs/screenshots/editor-ru.png)
 
-| Английский интерфейс | Файловый диалог |
+| Английский интерфейс | Пресет Bryce |
 |---|---|
-| ![Файловый диалог Qutre 3D](docs/screenshots/file-dialog-en.png) |
+| ![Редактор Qutre 3D — английский интерфейс](docs/screenshots/editor-en.png) | ![Отрендеренная сцена Bryce — хром, стекло и шахматный пол](docs/screenshots/render-bryce.png) |
 
 ![Отрендеренная сцена джунглей](docs/screenshots/render-jungle.png)
-
-![Отрендеренная сцена Bryce — хром, стекло и шахматный пол](docs/screenshots/render-bryce.png)
 
 ### Загрузка
 
 | Пакет | Платформа | Размер |
 |---|---|---|
-| [Qutre3D-0.2.0-win-x64-setup.exe](../../releases/latest/download/Qutre3D-0.2.0-win-x64-setup.exe) | Windows 10/11 x64 — установщик | 28,5 МБ |
-| [Qutre3D-0.2.0-win-x64-portable.zip](../../releases/latest/download/Qutre3D-0.2.0-win-x64-portable.zip) | Windows 10/11 x64 — портативная | 36,9 МБ |
-| [Qutre3D-0.2.0-linux-x64.tar.gz](../../releases/latest/download/Qutre3D-0.2.0-linux-x64.tar.gz) | Linux x64 | 35,8 МБ |
-| [Qutre3D-0.2.0-linux-arm64.tar.gz](../../releases/latest/download/Qutre3D-0.2.0-linux-arm64.tar.gz) | Linux arm64 | 33,6 МБ |
+| [Qutre3D-0.3.0-win-x64-setup.exe](../../releases/latest/download/Qutre3D-0.3.0-win-x64-setup.exe) | Windows 10/11 x64 — установщик | 28,5 МБ |
+| [Qutre3D-0.3.0-win-x64-portable.zip](../../releases/latest/download/Qutre3D-0.3.0-win-x64-portable.zip) | Windows 10/11 x64 — портативная | 37,0 МБ |
+| [Qutre3D-0.3.0-linux-x64.tar.gz](../../releases/latest/download/Qutre3D-0.3.0-linux-x64.tar.gz) | Linux x64 | 35,8 МБ |
+| [Qutre3D-0.3.0-linux-arm64.tar.gz](../../releases/latest/download/Qutre3D-0.3.0-linux-arm64.tar.gz) | Linux arm64 | 33,6 МБ |
 
 Все сборки self-contained: устанавливать .NET отдельно не нужно.
 
@@ -285,7 +301,7 @@ Qutre 3D — компактный 3D-редактор миров на C#, где
 
 **Windows**
 
-1. Запустите `Qutre3D-0.2.0-win-x64-setup.exe`.
+1. Запустите `Qutre3D-0.3.0-win-x64-setup.exe`.
 2. Выберите **English** или **Русский** в установщике.
 3. При желании создайте ярлык на рабочем столе и запускайте Qutre 3D из меню «Пуск».
 
@@ -298,8 +314,8 @@ Qutre 3D — компактный 3D-редактор миров на C#, где
 apt/dnf/pacman и root для обычной пользовательской установки.
 
 ```sh
-tar -xzf Qutre3D-0.2.0-linux-x64.tar.gz
-cd qutre3d-0.2.0-linux-x64
+tar -xzf Qutre3D-0.3.0-linux-x64.tar.gz
+cd qutre3d-0.3.0-linux-x64
 ./install.sh            # спросит English / Русский
 qutre3d                 # или запустите «Qutre 3D» из меню приложений
 ```
@@ -324,8 +340,8 @@ Fedora 33+, Arch, openSUSE и производные).
 
 ### Первые шаги
 
-1. Выберите пресет в меню **Пресеты** — «Джунгли», «Breakcore», «Нуар»,
-   «Угли» или «Пустота».
+1. Выберите пресет в меню **Пресеты** — «Bryce», «Джунгли», «Breakcore»,
+   «Нуар», «Угли» или «Пустота».
 2. Вращайте камеру правой кнопкой мыши, приближайте колесом.
 3. Настройте рельеф, небо, туман и пост в правой панели.
 4. `Ctrl+E` — PNG 1920×1080, `Ctrl+S` — сохранить сцену `.qutre`.
@@ -396,6 +412,8 @@ Qutre3D --export shot.png --scene examples/jungle.qutre --lang ru
   виньетка, зерно и хроматическая аберрация.
 - Пресеты — просто наборы чисел: цвета неба, солнце, туман, пост и палитра.
 - Материалы: albedo, emissive, roughness, metallic, opacity.
+- Процедурные примитивы: сфера, куб, тор, цилиндр, шахматный пол, кружка и
+  чайник — вся геометрия строится кодом при запуске, без импорта моделей.
 - Перетаскивание объектов прямо во вьюпорте, подсветка гизмо, список слоёв.
 - Встроенный файловый диалог с вводом пути, фильтрами и запоминанием каталога.
 - Полный интерфейс RU/EN и встроенные шрифты DejaVu с гарантированной кириллицей.

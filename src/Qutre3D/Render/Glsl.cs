@@ -446,6 +446,8 @@ public static partial class Glsl
         uniform vec4  uShadow1;
         uniform vec4  uShadow2;
         uniform vec4  uShadow3;
+        uniform vec4  uShadow4;
+        uniform vec4  uShadow5;
         uniform int   uShadowCount;
 
         float qShadowBlob(vec3 world, vec4 sh)
@@ -487,6 +489,8 @@ public static partial class Glsl
             if (uShadowCount > 1) occ = max(occ, qShadowBlob(vWorld, uShadow1));
             if (uShadowCount > 2) occ = max(occ, qShadowBlob(vWorld, uShadow2));
             if (uShadowCount > 3) occ = max(occ, qShadowBlob(vWorld, uShadow3));
+            if (uShadowCount > 4) occ = max(occ, qShadowBlob(vWorld, uShadow4));
+            if (uShadowCount > 5) occ = max(occ, qShadowBlob(vWorld, uShadow5));
             float shadow = 1.0 - occ;
 
             vec3 n = normalize(vNormal);

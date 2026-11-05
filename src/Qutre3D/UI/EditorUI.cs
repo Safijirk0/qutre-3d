@@ -19,7 +19,7 @@ public enum EditorTab
 /// <summary>Весь интерфейс редактора. Панели — в соседнем файле (partial).</summary>
 public sealed partial class EditorUI
 {
-    public const string Version = "0.2.0";
+    public const string Version = "0.3.0";
 
     public const float ToolStripWidth = 38f;
     public const float LeftWidth = 246f;
@@ -258,6 +258,8 @@ public sealed partial class EditorUI
         x = DrawShelfAdd(app, x, iconY, iconSize, EntityKind.Box, Loc.T("Куб", "Box"));
         x = DrawShelfAdd(app, x, iconY, iconSize, EntityKind.Torus, Loc.T("Тор", "Torus"));
         x = DrawShelfAdd(app, x, iconY, iconSize, EntityKind.Cylinder, Loc.T("Цилиндр", "Cylinder"));
+        x = DrawShelfAdd(app, x, iconY, iconSize, EntityKind.Mug, Loc.T("Кружка", "Mug"));
+        x = DrawShelfAdd(app, x, iconY, iconSize, EntityKind.Teapot, Loc.T("Чайник", "Teapot"));
         x = DrawShelfAdd(app, x, iconY, iconSize, EntityKind.Plane, Loc.T("Шахматный пол", "Checker floor"));
 
         x += 8f;

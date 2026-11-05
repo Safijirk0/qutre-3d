@@ -13,7 +13,7 @@
     <AssemblyTitle>Qutre 3D</AssemblyTitle>
     <Description>Atmospheric 3D world editor</Description>
     <Company>Qutre 3D</Company>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <ApplicationIcon>..\..\assets\logo.ico</ApplicationIcon>
     <InvariantGlobalization>false</InvariantGlobalization>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>

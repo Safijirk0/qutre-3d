@@ -2,7 +2,7 @@
 ; Build:  ISCC.exe installer\windows\qutre3d.iss
 
 #define MyAppName "Qutre 3D"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "0.3.0"
 #define MyAppPublisher "Qutre 3D"
 #define MyAppExeName "Qutre3D.exe"
 #define MyAppId "{{8E1D0A8E-3F5E-4E2A-9E4B-6B7C2F5D9A11}"

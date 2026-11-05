@@ -27,7 +27,7 @@ internal static class Program
 
             if (args[i] is "--version" or "-v")
             {
-                Console.WriteLine("Qutre 3D 0.2.0");
+                Console.WriteLine("Qutre 3D 0.3.0");
                 return;
             }
 

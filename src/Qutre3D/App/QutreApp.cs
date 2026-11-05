@@ -509,6 +509,19 @@ public sealed class QutreApp : GameWindow
                 entity.TileSize = 12f;
                 entity.Roughness = 0.22f;
                 break;
+            case EntityKind.Mug:
+                entity.Position = Camera.Target + new Vector3(0f, 2.6f, 0f);
+                entity.Scale = new Vector3(3f);
+                entity.Albedo = new Vector3(0.88f, 0.86f, 0.80f);
+                entity.Roughness = 0.22f;
+                break;
+            case EntityKind.Teapot:
+                entity.Position = Camera.Target + new Vector3(0f, 3.2f, 0f);
+                entity.Scale = new Vector3(3f);
+                entity.Albedo = new Vector3(0.16f, 0.46f, 0.50f);
+                entity.Roughness = 0.20f;
+                entity.Metallic = 0.15f;
+                break;
         }
 
         Scene.Entities.Add(entity);

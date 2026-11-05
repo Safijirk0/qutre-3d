@@ -17,6 +17,8 @@ public sealed partial class EditorUI
         EntityKind.Box => new ImVec4(0.48f, 0.48f, 0.50f, 1f),
         EntityKind.Torus => new ImVec4(0.70f, 0.42f, 0.24f, 1f),
         EntityKind.Cylinder => new ImVec4(0.34f, 0.52f, 0.40f, 1f),
+        EntityKind.Mug => new ImVec4(0.86f, 0.82f, 0.70f, 1f),
+        EntityKind.Teapot => new ImVec4(0.16f, 0.46f, 0.50f, 1f),
         EntityKind.Plane => new ImVec4(0.84f, 0.86f, 0.82f, 1f),
         _ => new ImVec4(0.5f, 0.5f, 0.5f, 1f),
     };

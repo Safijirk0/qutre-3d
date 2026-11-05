@@ -31,6 +31,8 @@ public sealed class Renderer : IDisposable
     private readonly Mesh _box;
     private readonly Mesh _torus;
     private readonly Mesh _cylinder;
+    private readonly Mesh _mug;
+    private readonly Mesh _teapot;
     private readonly Mesh _quad;
     private readonly Mesh _grid;
     private readonly Mesh _boxWire;
@@ -72,6 +74,8 @@ public sealed class Renderer : IDisposable
         _box = MeshFactory.Box();
         _torus = MeshFactory.Torus();
         _cylinder = MeshFactory.Cylinder();
+        _mug = MeshFactory.Mug();
+        _teapot = MeshFactory.Teapot();
         _quad = MeshFactory.Quad();
         _grid = MeshFactory.Grid(48, 3f);
         _boxWire = BuildBoxWire();
@@ -319,12 +323,13 @@ public sealed class Renderer : IDisposable
         sunFlat = sunFlat.LengthSquared > 1e-5f ? Vector2.Normalize(sunFlat) : Vector2.Zero;
 
         int shadows = 0;
-        string[] shadowNames = { "uShadow0", "uShadow1", "uShadow2", "uShadow3" };
+        string[] shadowNames = { "uShadow0", "uShadow1", "uShadow2", "uShadow3", "uShadow4", "uShadow5" };
         foreach (var e in scene.Entities)
         {
-            if (shadows >= 4) break;
+            if (shadows >= 6) break;
             if (!e.Visible) continue;
-            if (e.Kind is not (EntityKind.Sphere or EntityKind.Box or EntityKind.Torus or EntityKind.Cylinder))
+            if (e.Kind is not (EntityKind.Sphere or EntityKind.Box or EntityKind.Torus or EntityKind.Cylinder
+                or EntityKind.Mug or EntityKind.Teapot))
                 continue;
 
             float footprint = e.Kind switch
@@ -333,6 +338,8 @@ public sealed class Renderer : IDisposable
                 EntityKind.Box => MathF.Max(e.Scale.X, e.Scale.Z) * 1.5f,
                 EntityKind.Cylinder => MathF.Max(e.Scale.X, e.Scale.Z) * 1.4f,
                 EntityKind.Torus => MathF.Max(e.Scale.X, e.Scale.Z) * 1.45f,
+                EntityKind.Mug => MathF.Max(e.Scale.X, e.Scale.Z) * 1.15f,
+                EntityKind.Teapot => MathF.Max(e.Scale.X, e.Scale.Z) * 1.55f,
                 _ => 1f,
             };
 
@@ -342,6 +349,8 @@ public sealed class Renderer : IDisposable
                 EntityKind.Box => e.Scale.Y,
                 EntityKind.Cylinder => e.Scale.Y,
                 EntityKind.Torus => e.Scale.Y * 1.2f,
+                EntityKind.Mug => e.Scale.Y,
+                EntityKind.Teapot => e.Scale.Y * 1.1f,
                 _ => e.Scale.Y,
             };
 
@@ -370,6 +379,8 @@ public sealed class Renderer : IDisposable
             EntityKind.Box => _box,
             EntityKind.Torus => _torus,
             EntityKind.Cylinder => _cylinder,
+            EntityKind.Mug => _mug,
+            EntityKind.Teapot => _teapot,
             _ => _sphere,
         };
 
@@ -636,6 +647,7 @@ public sealed class Renderer : IDisposable
         _bright.Dispose(); _blur.Dispose();
 
         _sphere.Dispose(); _box.Dispose(); _torus.Dispose(); _cylinder.Dispose();
+        _mug.Dispose(); _teapot.Dispose();
         _quad.Dispose(); _grid.Dispose(); _boxWire.Dispose();
         _axisX.Dispose(); _axisY.Dispose(); _axisZ.Dispose();
 

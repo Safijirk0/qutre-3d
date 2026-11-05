@@ -60,6 +60,8 @@ public static class PrimitiveIcons
             case EntityKind.Box: Box(dl, center, r, palette); break;
             case EntityKind.Torus: Torus(dl, center, r, palette); break;
             case EntityKind.Cylinder: Cylinder(dl, center, r, palette); break;
+            case EntityKind.Mug: Mug(dl, center, r, palette); break;
+            case EntityKind.Teapot: Teapot(dl, center, r, palette); break;
             case EntityKind.Terrain: Terrain(dl, center, r); break;
             case EntityKind.Water: Water(dl, center, r); break;
             case EntityKind.Plane: Plane(dl, center, r); break;
@@ -135,6 +137,64 @@ public static class PrimitiveIcons
         EllipseStroke(dl, new Vector2(c.X, bottom), rx, r * 0.20f, C(p.Lo), 1.1f, 28, 0f, MathF.PI);
         dl.AddLine(new Vector2(c.X - rx, top), new Vector2(c.X - rx, bottom), C(p.Lo, 0.8f), 1.1f);
         dl.AddLine(new Vector2(c.X + rx, top), new Vector2(c.X + rx, bottom), C(p.Lo, 0.8f), 1.1f);
+    }
+
+    private static void Mug(ImDrawListPtr dl, Vector2 c, float r,
+        (Vector4 Hi, Vector4 Mid, Vector4 Lo) p)
+    {
+        EllipseFill(dl, new Vector2(c.X, c.Y + r * 0.84f), r * 0.76f, r * 0.18f, C(Theme.Shadow, 0.28f));
+
+        float top = c.Y - r * 0.54f;
+        float bottom = c.Y + r * 0.68f;
+        float rx = r * 0.55f;
+
+        // ручка позади корпуса
+        var hc = new Vector2(c.X + rx * 1.05f, c.Y + r * 0.04f);
+        EllipseStroke(dl, hc, r * 0.36f, r * 0.36f, C(p.Mid), r * 0.17f, 24,
+            -MathF.PI * 0.55f, MathF.PI * 0.55f);
+        EllipseStroke(dl, hc, r * 0.36f, r * 0.36f, C(p.Lo), 1.1f, 24,
+            -MathF.PI * 0.55f, MathF.PI * 0.55f);
+
+        dl.AddRectFilled(new Vector2(c.X - rx, top), new Vector2(c.X + rx, bottom), C(p.Mid));
+        dl.AddRectFilled(new Vector2(c.X - rx, top), new Vector2(c.X - rx * 0.18f, bottom), C(p.Hi, 0.30f));
+        dl.AddRectFilled(new Vector2(c.X + rx * 0.42f, top), new Vector2(c.X + rx, bottom), C(p.Lo, 0.30f));
+
+        EllipseFill(dl, new Vector2(c.X, top), rx, r * 0.17f, C(p.Hi));
+        EllipseStroke(dl, new Vector2(c.X, top), rx, r * 0.17f, C(p.Lo), 1.1f, 28);
+        EllipseStroke(dl, new Vector2(c.X, bottom), rx, r * 0.15f, C(p.Lo), 1.1f, 28, 0f, MathF.PI);
+        dl.AddLine(new Vector2(c.X - rx, top), new Vector2(c.X - rx, bottom), C(p.Lo, 0.8f), 1.1f);
+        dl.AddLine(new Vector2(c.X + rx, top), new Vector2(c.X + rx, bottom), C(p.Lo, 0.8f), 1.1f);
+    }
+
+    private static void Teapot(ImDrawListPtr dl, Vector2 c, float r,
+        (Vector4 Hi, Vector4 Mid, Vector4 Lo) p)
+    {
+        EllipseFill(dl, new Vector2(c.X, c.Y + r * 0.86f), r * 0.82f, r * 0.18f, C(Theme.Shadow, 0.28f));
+
+        // носик
+        var s0 = new Vector2(c.X + r * 0.54f, c.Y + r * 0.14f);
+        var s1 = new Vector2(c.X + r * 0.98f, c.Y + r * 0.02f);
+        var s2 = new Vector2(c.X + r * 1.02f, c.Y - r * 0.24f);
+        dl.AddTriangleFilled(s0, s1, s2, C(p.Mid));
+        dl.AddLine(s0, s1, C(p.Lo, 0.65f), 1f);
+
+        // ручка
+        var hc = new Vector2(c.X - r * 0.64f, c.Y + r * 0.02f);
+        EllipseStroke(dl, hc, r * 0.30f, r * 0.38f, C(p.Mid), r * 0.13f, 22,
+            MathF.PI * 0.5f, MathF.PI * 1.5f);
+        EllipseStroke(dl, hc, r * 0.30f, r * 0.38f, C(p.Lo), 1f, 22,
+            MathF.PI * 0.5f, MathF.PI * 1.5f);
+
+        // корпус
+        var bc = new Vector2(c.X, c.Y + r * 0.10f);
+        EllipseFill(dl, bc, r * 0.66f, r * 0.58f, C(p.Mid));
+        EllipseFill(dl, new Vector2(c.X - r * 0.16f, c.Y - r * 0.06f), r * 0.42f, r * 0.36f, C(p.Hi, 0.55f));
+        EllipseStroke(dl, bc, r * 0.66f, r * 0.58f, C(p.Lo), 1.2f, 32);
+
+        // крышка
+        EllipseFill(dl, new Vector2(c.X, c.Y - r * 0.48f), r * 0.34f, r * 0.14f, C(p.Hi));
+        EllipseStroke(dl, new Vector2(c.X, c.Y - r * 0.48f), r * 0.34f, r * 0.14f, C(p.Lo), 1.1f, 24);
+        dl.AddCircleFilled(new Vector2(c.X, c.Y - r * 0.62f), r * 0.08f, C(p.Hi), 12);
     }
 
     private static void Terrain(ImDrawListPtr dl, Vector2 c, float r)

@@ -12,6 +12,8 @@ public enum EntityKind
     Torus,
     Cylinder,
     Plane,
+    Mug,
+    Teapot,
 }
 
 /// <summary>
@@ -88,6 +90,8 @@ public sealed class Entity
             EntityKind.Box => 1.74f,
             EntityKind.Torus => 1.45f,
             EntityKind.Cylinder => 1.3f,
+            EntityKind.Mug => 1.35f,
+            EntityKind.Teapot => 1.65f,
             EntityKind.Water => 2000f,
             EntityKind.Plane => 2000f,
             EntityKind.Terrain => MathF.Max(Terrain.Size * 0.5f, Terrain.Height),
@@ -107,6 +111,8 @@ public sealed class Entity
         EntityKind.Torus => Loc.T("Тор", "Torus"),
         EntityKind.Cylinder => Loc.T("Цилиндр", "Cylinder"),
         EntityKind.Plane => Loc.T("Шахматный пол", "Checker floor"),
+        EntityKind.Mug => Loc.T("Кружка", "Mug"),
+        EntityKind.Teapot => Loc.T("Чайник", "Teapot"),
         _ => Loc.T("Объект", "Object"),
     };
 
@@ -119,6 +125,8 @@ public sealed class Entity
         EntityKind.Torus => Loc.T("тор", "torus"),
         EntityKind.Cylinder => Loc.T("цилиндр", "cylinder"),
         EntityKind.Plane => Loc.T("шахматный пол", "checker floor"),
+        EntityKind.Mug => Loc.T("кружка", "mug"),
+        EntityKind.Teapot => Loc.T("чайник", "teapot"),
         _ => Loc.T("объект", "object"),
     };
 
